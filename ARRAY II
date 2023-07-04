@@ -1,0 +1,112 @@
+1. ROTATE MATRIX : 
+---------------------
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+              swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+        for(int i=0;i<matrix.size();i++){
+            reverse(matrix[i].begin(),matrix[i].end());
+        }
+    }
+};
+
+2. MERGE OVERLAPPING SUBINTERVALS : 
+------------------------------------
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    int n = intervals.size(); 
+    sort(intervals.begin(), intervals.end());
+    vector<vector<int>> ans;
+    for (int i = 0; i < n; i++) {
+        if (ans.empty() || intervals[i][0] > ans.back()[1]) {
+            ans.push_back(intervals[i]);
+        }
+        else {
+            ans.back()[1] = max(ans.back()[1], intervals[i][1]);
+        }
+    }
+    return ans;
+
+    }
+};
+
+3. MERGE 2 SORTED ARRAYS WITHOUT EXTRA SPACE : 
+------------------------------------------------
+class Solution {
+public:
+void swapper(vector<int> nums1, vector<int> nums2, int i, int j) {
+    if (nums1[i] > nums2[j]) {
+        swap(nums1[i], nums2[j]);
+    }
+}
+
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    int len = n + m;
+    int gap = (len / 2) + (len % 2);
+    while (gap > 0) {
+        int lt = 0;
+        int rt = lt + gap;
+        while (rt < len) {
+        
+            if (lt < n && rt >= n) {
+                swapper(nums1, nums2, lt, rt - n);
+            }
+        
+            else if (lt >= n) {
+                swapper(nums2, nums2, lt - n, rt - n);
+            }
+        
+            else {
+                swapper(nums1, nums1, lt, rt);
+            }
+            lt++, rt++;
+        }
+        
+        if (gap == 1) break;
+        gap = (gap / 2) + (gap % 2);
+    }
+}
+};
+
+4. FIND THE DUPLICATE: 
+--------------------------
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+int n = nums.size();
+int ans;
+  vector<int> freq(n + 1,0);
+  for (int i = 0; i < n; i++) 
+  {
+    if (freq[nums[i]] == 0) 
+      freq[nums[i]] += 1;
+    else 
+      ans= nums[i];
+      }
+      return ans;
+      } 
+};
+
+5. INVERSION OF ARRAY: 
+----------------------
+class Solution {
+public:
+long long getInversions(long long *arr, int n){
+    long long cnt = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) cnt++;
+        }
+    }
+    return cnt;
+}
+};
+
+
